@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aureon Game</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            color: #e2e8f0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid #334155;
+            border-radius: 20px;
+            padding: 24px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        h1 { color: #818cf8; margin-bottom: 16px; font-size: 24px; }
+        .balance {
+            font-size: 32px;
+            font-weight: bold;
+            color: #22c55e;
+            margin: 16px 0;
+        }
+        .coin { color: #fbbf24; margin-right: 6px; }
+        button {
+            background: #818cf8;
+            border: none;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+        }
+        button:active { background: #6366f1; }
+        .log {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #94a3b8;
+            text-align: left;
+            height: 120px;
+            overflow-y: auto;
+            border-top: 1px solid #334155;
+            padding-top: 12px;
+        }
+        .log-entry { margin: 6px 0; padding: 6px; background: rgba(15, 23, 42, 0.5); border-radius: 6px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🎮 Aureon</h1>
+        <div class="balance"><span class="coin">🪙</span><span id="balance">0</span></div>
+        <p>Виртуальная экономика. Реальных денег нет.</p>
+        <button id="earnBtn">Заработать +10 🪙</button>
+        <div class="log" id="log"></div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.ready();
+
+        let balance = 0;
+        const balanceEl = document.getElementById('balance');
+        const logEl = document.getElementById('log');
+        const earnBtn = document.getElementById('earnBtn');
+
+        function addLog(text) {
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.textContent = text;
+            logEl.prepend(entry);
+        }
+
+        function updateBalance() {
+            balanceEl.textContent = balance;
+            tg.MainButton.setText(`Баланс: ${balance} 🪙`);
+        }
+
+        earnBtn.addEventListener('click', () => {
+            balance += 10;
+            updateBalance();
+            addLog('Ты заработал 10 🪙');
+            tg.showAlert('Получено +10 монет!');
+        });
+
+        // Инициализация
+        tg.MainButton.setText(`Баланс: 0 🪙`);
+        tg.MainButton.hide();
+        updateBalance();
+        addLog('Игра Aureon запущена');
+    </script>
+</body>
+</html>
