@@ -4,10 +4,10 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppI
 from telegram.ext import Application, CommandHandler, ContextTypes
 
 # Токен бота (получить у @BotFather)
-BOT_TOKEN = os.getenv("BOT_TOKEN", "ВАШ_ТОКЕН_БОТА")
+BOT_TOKEN = os.getenv("BOT_TOKEN", "9180763614:AAG501MyKNIUCy8cmG6W8AaMkeE-tC7Lsy8")
 
 # Ссылка на страницу с игрой (вставьте свой URL)
-WEBAPP_URL = os.getenv("WEBAPP_URL", "https://your-username.github.io/aureon-telegram-game/")
+WEBAPP_URL = os.getenv("WEBAPP_URL", "https://statusovgpt.github.io/Aureon/")
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
